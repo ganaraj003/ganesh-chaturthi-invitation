@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>गणेशोत्सव आमंत्रण | शिवभक्त परिवार</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 50%, #ffcc80 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #333;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Floating background decoration elements */
+    .bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(230, 92, 0, 0.08);
+      z-index: 0;
+    }
+    .circle-1 { width: 300px; height: 300px; top: -50px; left: -50px; }
+    .circle-2 { width: 400px; height: 400px; bottom: -100px; right: -100px; }
+
+    /* Modal Styling */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(5px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      transition: opacity 0.5s ease;
+    }
+
+    .modal-card {
+      background: #ffffff;
+      padding: 30px 25px;
+      border-radius: 16px;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      border: 2px solid #e65c00;
+    }
+
+    .modal-card h2 {
+      color: #b33900;
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+    }
+
+    .modal-card p {
+      color: #666;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+    }
+
+    .modal-card input {
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      outline: none;
+      text-align: center;
+    }
+
+    .modal-card input:focus {
+      border-color: #e65c00;
+      box-shadow: 0 0 5px rgba(230, 92, 0, 0.4);
+    }
+
+    .modal-card button {
+      background: linear-gradient(135deg, #e65c00, #cc4400);
+      color: #fff;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    .modal-card button:hover {
+      transform: scale(1.03);
+      background: linear-gradient(135deg, #cc4400, #b33900);
+    }
+
+    /* Main Invitation Container */
+    .card-container {
+      background: #ffffff;
+      max-width: 550px;
+      width: 100%;
+      border-radius: 20px;
+      padding: 35px 25px;
+      box-shadow: 0 12px 35px rgba(179, 57, 0, 0.2);
+      border: 3px double #e65c00;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      display: none;
+    }
+
+    .card-container.visible {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .header-title {
+      color: #b33900;
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .sub-title {
+      color: #802000;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .guest-greeting {
+      font-size: 1.25rem;
+      color: #b33900;
+      font-weight: bold;
+      margin-bottom: 15px;
+      background: #fff3e6;
+      display: inline-block;
+      padding: 6px 18px;
+      border-radius: 20px;
+      border: 1px dashed #e65c00;
+    }
+
+    .quote-box {
+      background: #fff3e6;
+      border-left: 5px solid #e65c00;
+      border-right: 5px solid #e65c00;
+      padding: 15px;
+      margin: 20px 0;
+      font-size: 1.15rem;
+      font-weight: bold;
+      color: #d94800;
+      border-radius: 8px;
+      line-height: 1.6;
+    }
+
+    .invitation-text {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #444;
+      margin-bottom: 25px;
+    }
+
+    .schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    .schedule-table th, .schedule-table td {
+      border: 1px solid #ffe0b2;
+      padding: 10px 12px;
+      font-size: 0.95rem;
+    }
+
+    .schedule-table th {
+      background-color: #fff2cc;
+      color: #b33900;
+    }
+
+    .schedule-table tr:nth-child(even) {
+      background-color: #fffaf0;
+    }
+
+    .address-section {
+      background: #fafafa;
+      border: 1px solid #ffe0b2;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    .address-section h3 {
+      color: #cc4400;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .footer {
+      margin-top: 25px;
+      font-weight: bold;
+      color: #b33900;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-circle circle-1"></div>
+  <div class="bg-circle circle-2"></div>
+
+  <!-- Modal Screen for Guest Name -->
+  <div class="modal-overlay" id="nameModal">
+    <div class="modal-card">
+      <h2>॥ श्री गणेशाय नमः ॥</h2>
+      <p>आमंत्रण पाहण्यासाठी कृपया आपले नाव टाका:</p>
+      <input type="text" id="guestNameInput" placeholder="तुमचे नाव येथे लिहा..." autofocus>
+      <br>
+      <button onclick="showInvitation()">आमंत्रण पहा</button>
+    </div>
+  </div>
+
+  <!-- Invitation Card -->
+  <div class="card-container" id="invitationCard">
+    <div class="header-title">॥ श्री गणेशाय नमः ॥</div>
+    <div class="sub-title">॥ आपुलकीचे स्नेहादर आमंत्रण ॥</div>
+
+    <div class="guest-greeting" id="displayGuestName">सस्नेह नमस्कार!</div>
+
+    <div class="quote-box">
+      तुमच्याशिवाय उत्सव अधुराच❣️☺️<br>
+      आमंत्रण खास आहे, यायचं नक्की …🧡
+    </div>
+
+    <p class="invitation-text">
+      दरवर्षीप्रमाणे यंदाही आमच्या घरी श्री गणरायाचे आगमन होणार आहे. या मंगलमयी व आनंदाच्या ११ दिवसांच्या उत्सवात तुमची उपस्थिती आमच्यासाठी अत्यंत मोलाची आहे. बाप्पाच्या दर्शनासाठी तुम्हाला व तुमच्या संपूर्ण परिवाराला मनापासून आमंत्रण!
+    </p>
+
+    <h3 style="color: #cc4400; margin-bottom: 10px;">-- : कार्यक्रमाची रूपरेषा (११ दिवसांचा उत्सव) : --</h3>
+    
+    <table class="schedule-table">
+      <thead>
+        <tr>
+          <th>कार्यक्रम / विधी</th>
+          <th>वेळ / तपशील</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>उत्सव कालावधी</strong></td>
+          <td>११ दिवस (गणेशोत्सव)</td>
+        </tr>
+        <tr>
+          <td><strong>सकाळची आरती</strong></td>
+          <td>सकाळी ९:०० वाजता</td>
+        </tr>
+        <tr>
+          <td><strong>संध्याकाळची आरती</strong></td>
+          <td>संध्याकाळी ९:०० वाजता</td>
+        </tr>
+        <tr>
+          <td><strong>दर्शन</strong></td>
+          <td>दिवसभरात कधीही</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="address-section">
+      <h3>-- : पत्ता : --</h3>
+      <p>फ्लॅट क्र. २०६, २-सी, नाकोडा हाईट्स,<br>यशवंत गौरव, नालासोपारा (पश्चिम).</p>
+    </div>
+
+    <div class="footer">
+      निमंत्रक: शिवभक्त परिवार
+    </div>
+  </div>
+
+  <script>
+    function showInvitation() {
+      const nameInput = document.getElementById('guestNameInput').value.trim();
+      const guestGreeting = document.getElementById('displayGuestName');
+      
+      if (nameInput !== "") {
+        guestGreeting.innerText = "स्नेही " + nameInput + ", सस्नेह नमस्कार!";
+      } else {
+        guestGreeting.innerText = "सस्नेह नमस्कार!";
+      }
+
+      const modal = document.getElementById('nameModal');
+      const card = document.getElementById('invitationCard');
+
+      modal.style.opacity = '0';
+      setTimeout(() => {
+        modal.style.display = 'none';
+        card.classList.add('visible');
+      }, 500);
+    }
+  </script>
+
+</body>
+</html>
